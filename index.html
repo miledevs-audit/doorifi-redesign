@@ -29,6 +29,7 @@
   --ease:cubic-bezier(.76,0,.24,1);--ease-out:cubic-bezier(.16,1,.3,1);
 }
 *,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:calc(var(--hdr) + 12px)}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:clip}
 body.lock{overflow:hidden}
@@ -986,6 +987,138 @@ a.crow:hover .crow__ar{transform:translate(2px,-2px)}
 .st__all .ico{width:16px;height:16px}
 .st__foot{grid-template-columns:1fr auto}
 .crow{grid-template-columns:minmax(0,1fr)}
+
+/* =====================================================================
+   v6 · lead form rebuilt for clarity: one task per step, address first,
+   tap cards with auto-advance, honest progress, errors only after an
+   attempt, contact last, "what happens next" on the thank-you screen.
+   ===================================================================== */
+.lf__top{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:12px}
+.lf__stepT{font-weight:500;font-size:15px;letter-spacing:.02em}
+.lf__left{font-size:15px;color:var(--mute)}
+.lf__prog{height:4px;background:var(--stone-2);border-radius:4px;overflow:hidden}
+.lf__prog span{position:static;display:block;height:100%;width:14.2857%;background:var(--ink);border-radius:4px;transition:width .5s var(--ease-out)}
+.lf__body{padding-top:26px;transition:opacity .2s ease,transform .3s ease}
+.lf__body.is-out{opacity:0;transform:translateY(8px)}
+.lf__back{display:flex;width:max-content;align-items:center;gap:8px;min-height:48px;margin:-12px 0 4px -2px;padding:0 4px;font-size:16px;color:var(--mute);text-decoration:underline;text-underline-offset:4px}
+.lf__back:hover{color:var(--ink)}
+.lf__back .ico{width:16px;height:16px}
+.lf__q{font-weight:500;font-size:clamp(26px,2.3vw,32px);line-height:1.15;letter-spacing:-.015em;outline:0}
+.lf__d{margin-top:10px;font-size:17px;line-height:1.5;color:var(--mute)}
+.lf__content{margin-top:22px}
+.lf__lbl{display:block;margin:22px 0 8px;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.lf__combo{position:relative}
+.lf__addrbox{display:flex;align-items:center;gap:12px;min-height:68px;padding:0 18px;border:1.5px solid var(--line-2);background:#fff;transition:border-color .25s,box-shadow .25s}
+.lf__addrbox:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px rgba(11,12,14,.08)}
+.lf__addrbox .ico{width:22px;height:22px}
+.lf__addrbox input{flex:1;min-width:0;height:64px;border:0;outline:0;background:none;font-size:18px}
+.lf__addrbox input::placeholder{color:#6B6E75}
+.lf.addr-bad .lf__addrbox{border-color:var(--err)}
+.lf__sug{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:40;border:1px solid var(--line-2);background:#fff;box-shadow:0 24px 48px -18px rgba(11,12,14,.35)}
+.lf__sug .k{padding:10px 16px 6px;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.lf__sug li[role=option]{display:flex;align-items:center;gap:12px;min-height:52px;padding:8px 16px;font-size:16.5px;cursor:pointer;border-top:1px solid var(--line)}
+.lf__sug li[role=option] .ico{width:18px;height:18px;color:var(--mute)}
+.lf__sug li[role=option] small{display:block;font-size:14px;color:var(--mute)}
+.lf__sug li[aria-selected=true],.lf__sug li[role=option]:hover{background:var(--stone)}
+.lf__err{display:flex;gap:8px;margin-top:10px;font-size:15.5px;line-height:1.4;color:var(--err)}
+.lf__go{width:100%;min-height:62px;margin-top:14px;font-size:17px}
+.lf__trust{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:16px;font-size:15.5px;color:var(--mute)}
+.lf__trust li{display:inline-flex;align-items:center;gap:7px}
+.lf__trust .ico{width:16px;height:16px;color:#1a7f37}
+/* tap cards */
+.ch{display:grid;gap:10px}
+.ch--2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ch__o{position:relative;display:flex;align-items:center;gap:14px;min-height:64px;padding:12px 16px;border:1.5px solid var(--line-2);background:#fff;cursor:pointer;transition:border-color .2s,background-color .2s,transform .15s}
+.ch__o:hover{border-color:var(--ink)}
+.ch__o:active{transform:scale(.99)}
+.ch__o input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.ch__o:has(input:focus-visible){outline:3px solid var(--glow);outline-offset:2px}
+.ch__ic{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;background:var(--stone)}
+.ch__ic .ico{width:22px;height:22px}
+.ch__t{flex:1;min-width:0;font-size:17px;line-height:1.3}
+.ch__t small{display:block;margin-top:2px;font-size:14.5px;line-height:1.35;color:var(--mute)}
+.ch__tick{flex:none;display:grid;place-items:center;width:24px;height:24px;border:1.5px solid var(--line-2);border-radius:50%;color:#fff}
+.ch__tick .ico{width:14px;height:14px;opacity:0}
+.ch__o.is-sel{border-color:var(--ink);background:var(--stone)}
+.ch__o.is-sel .ch__tick{background:var(--ink);border-color:var(--ink)}
+.ch__o.is-sel .ch__tick .ico{opacity:1}
+.ch__o.is-sel .ch__ic{background:var(--ink);color:#fff}
+.chips{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.chips[data-n="5"]{grid-template-columns:repeat(5,minmax(0,1fr))}
+.chips .ch__o{justify-content:center;min-height:58px;padding:0;font-size:19px;font-weight:500}
+.chips .ch__o.is-sel{background:var(--ink);color:#fff}
+.lf__sub{margin:20px 0 10px;font-size:15px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.lf__sub:first-child{margin-top:0}
+.lf__hint{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:15.5px;color:var(--mute)}
+.lf__hint .ico{width:16px;height:16px;color:#1a7f37}
+.lf__acts{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;margin-top:20px}
+.lf__acts .btn{min-height:56px;min-width:200px;font-size:16.5px}
+.lf__txtbtn{min-height:48px;padding:0 4px;font-size:16px;color:var(--mute);text-decoration:underline;text-underline-offset:4px}
+.lf__txtbtn:hover{color:var(--ink)}
+/* contact */
+.cf{display:grid;gap:16px}
+.cf__f label{display:block;margin-bottom:6px;font-size:15px;font-weight:500}
+.cf__f input{width:100%;height:58px;padding:0 16px;border:1.5px solid var(--line-2);background:#fff;outline:0;font-size:18px;transition:border-color .25s,box-shadow .25s}
+.cf__f input::placeholder{color:#6B6E75}
+.cf__f input:focus{border-color:var(--ink);box-shadow:0 0 0 3px rgba(11,12,14,.08)}
+.cf__f.err input{border-color:var(--err)}
+.cf__f .msg{margin-top:6px;font-size:15px;color:var(--err)}
+.cf__priv{display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.45;color:var(--mute)}
+.cf__priv .ico{width:16px;height:16px;margin-top:2px;color:#1a7f37}
+.cf .btn{width:100%;min-height:62px;font-size:17px}
+.cf__legal{font-size:14px;line-height:1.5;color:var(--mute)}
+.cf__legal a{text-decoration:underline;text-underline-offset:3px}
+/* thank you */
+.lf__done{padding:6px 0 26px}
+.lf__doneK{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;background:#E9F6EC;color:#1a7f37;font-size:14px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.lf__doneK .ico{width:16px;height:16px}
+.lf__done h3{margin-top:18px;font-weight:500;font-size:clamp(28px,2.6vw,38px);line-height:1.12}
+.lf__doneAddr{margin-top:10px;font-size:17px;color:var(--mute)}
+.lf__nextK{margin-top:26px;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.lf__next{counter-reset:n;margin-top:12px;border-top:1px solid var(--line-2)}
+.lf__next li{counter-increment:n;display:grid;grid-template-columns:40px 1fr;gap:2px 8px;padding:14px 0;border-bottom:1px solid var(--line)}
+.lf__next li::before{content:counter(n);grid-row:1/3;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px}
+.lf__next b{font-weight:500;font-size:17px}
+.lf__next span{font-size:16px;line-height:1.5;color:var(--mute)}
+.lf__call{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:22px;padding:16px 16px 16px 20px;background:var(--ink);color:#fff}
+.lf__call small{display:block;font-size:14px;color:rgba(255,255,255,.78)}
+.lf__call b{display:block;margin-top:2px;font-weight:500;font-size:26px}
+.lf__callIc{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:#fff;color:var(--ink)}
+.lf__doneBtns{margin-top:14px}
+/* stage summary */
+.sum{position:absolute;z-index:30;top:13%;right:-10px;width:250px;padding:14px 16px;border:1px solid var(--line);background:#ffffffeb;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 24px 48px -16px rgba(11,12,14,.3);color:var(--ink);animation:float-delayed 6s ease-in-out infinite}
+.sum__k{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase}
+.sum__k .float-avatar{width:30px;height:30px}
+.sum__k .float-avatar img{width:14px}
+.sum li{display:grid;grid-template-columns:12px 74px minmax(0,1fr);align-items:center;gap:8px;padding:5px 0;font-size:14px;border-top:1px solid var(--line)}
+.sum__dot{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--line-2)}
+.sum li.on .sum__dot{background:#1a7f37;border-color:#1a7f37}
+.sum__l{color:var(--mute)}
+.sum__v{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.pill-glass{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:1024px){.sum{right:0}}
+@media (max-width:700px){
+  .lf__top{padding-bottom:10px}
+  .lf__stepT,.lf__left{font-size:14.5px}
+  .lf__body{padding-top:18px}
+  .lf__q{font-size:24px}
+  .lf__d{font-size:16px}
+  .lf__lbl{margin-top:16px}
+  .lf__addrbox{min-height:62px;padding:0 14px}
+  .lf__addrbox input{height:58px;font-size:17px}
+  .lf__go{min-height:58px}
+  .lf__trust{gap:6px 16px;font-size:15px}
+  .ch__o{min-height:60px;padding:10px 12px;gap:10px}
+  .ch--2 .ch__o{flex-direction:column;align-items:flex-start;justify-content:center;gap:8px;min-height:104px;padding:12px}
+  .ch--2 .ch__tick{position:absolute;top:10px;right:10px}
+  .ch__t{font-size:16.5px}
+  .chips{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .chips[data-n="5"]{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .chips .ch__o{min-height:54px}
+  .lf__acts .btn{flex:1}
+  .sum{display:none}
+  .lf__call b{font-size:23px}
+}
 </style>
 </head>
 <body>
@@ -1020,6 +1153,16 @@ a.crow:hover .crow__ar{transform:translate(2px,-2px)}
   <symbol id="i-vol" viewBox="0 0 24 24"><path d="M11 5 6.5 9H3v6h3.5L11 19V5z"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18.5 6.2a8.2 8.2 0 0 1 0 11.6"/></symbol>
   <symbol id="i-mute" viewBox="0 0 24 24"><path d="M11 5 6.5 9H3v6h3.5L11 19V5z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="1"/><path d="M3.5 6.5 12 13l8.5-6.5"/></symbol>
+  <symbol id="i-house" viewBox="0 0 24 24"><path d="M3.5 11 12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5h4v5"/></symbol>
+  <symbol id="i-town" viewBox="0 0 24 24"><path d="M2.5 11 7.5 6.5l4.5 4"/><path d="M12 10.5l4.5-4 5 4.5"/><path d="M4 9.6V20h16V9.6"/><path d="M12 10.5V20"/><path d="M6.5 20v-3.5h2.5V20M15 20v-3.5h2.5V20"/></symbol>
+  <symbol id="i-condo" viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="17" rx=".5"/><path d="M9 7.5h2M13 7.5h2M9 11h2M13 11h2M9 14.5h2M13 14.5h2M11 20.5v-3h2v3"/></symbol>
+  <symbol id="i-mobile" viewBox="0 0 24 24"><rect x="2.5" y="8" width="19" height="9" rx="1"/><path d="M6 17v2.5M18 17v2.5M6 11h3.5v3H6zM12.5 11.5h5"/></symbol>
+  <symbol id="i-multi" viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17"/><path d="M4 9.2h16M4 14.8h16M10.5 20.5v-3h3v3"/></symbol>
+  <symbol id="i-shop" viewBox="0 0 24 24"><path d="M3.5 9.5 5 4.5h14l1.5 5z"/><path d="M5 12v8.5h14V12"/><path d="M10 20.5v-5h4v5"/></symbol>
+  <symbol id="i-lot" viewBox="0 0 24 24"><path d="M3 19.5h18"/><path d="M5 19.5V9l7-3.5L19 9v10.5" stroke-dasharray="2 2.2"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15.5" r="4"/><path d="M11 12.5 19.5 4M16 7.5l2.5 2.5M13.8 9.7l2 2"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5 21.5 20h-19z"/><path d="M12 10v4.5M12 17.2v.3"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 .8-1 1.5v.4M12 16.8v.3"/></symbol>
 </svg>
 
 <header class="hdr" id="hdr">
@@ -1147,48 +1290,44 @@ a.crow:hover .crow__ar{transform:translate(2px,-2px)}
         <p class="eyebrow" data-r><span class="idx">01</span>Your cash offer</p>
         <h2 class="d-l" id="offer-title" data-rm><span class="m"><span>A competitive offer</span></span> <span class="m"><span>in minutes, not months.</span></span></h2>
       </div>
-      <p class="lead" data-r style="--d:.12s">Seven quick questions about your home. It takes about two minutes, it’s 100% free and there’s no obligation — no fees, no repairs, no open houses.</p>
+      <p class="lead" data-r style="--d:.12s">Start with your address, then a few one-tap questions. It takes about two minutes, it’s 100% free and there’s no obligation — no fees, no repairs, no open houses.</p>
     </div>
 
     <div class="offer__grid">
       <div class="lf" id="offer-form">
-        <div class="lf__bar">
-          <p class="lf__count"><span class="sr">Question </span><b id="lfNum">01</b><small>/ 07</small></p>
-          <p class="lf__meta"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>About 2 minutes · no obligation</p>
+        <div class="lf__top">
+          <p class="lf__stepT" id="lfStepT">Step 1 of 7</p>
+          <p class="lf__left" id="lfLeft">about 2 min left</p>
         </div>
-        <div class="lf__prog" aria-hidden="true"><span id="lfProg"></span></div>
-        <div class="lf__addr">
-          <label class="lf__lbl" for="lfAddr">Property address</label>
-          <div class="lf__addrrow"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg><input id="lfAddr" type="text" autocomplete="street-address" placeholder="Enter your home address" aria-describedby="lfAddrErr"></div>
-          <p class="lf__err" id="lfAddrErr" hidden>Please enter your property address</p>
-        </div>
-        <form class="lf__form" id="lfForm" novalidate>
-          <div class="lf__step" id="lfStep">
-            <h3 class="lf__q" id="lfQ" tabindex="-1">What best describes your home?</h3>
-            <p class="lf__d" id="lfD">This helps us select comps when preparing your offer.</p>
-            <div class="lf__content" id="lfContent">
-              <div class="lf__opts" role="radiogroup" aria-labelledby="lfQ">
-                <div class="lf__o"><label class="opt"><input type="radio" name="dwelling-s"><span class="opt__t">Single-family home</span><span class="opt__r" aria-hidden="true"></span></label></div>
-                <div class="lf__o"><label class="opt"><input type="radio" name="dwelling-s"><span class="opt__t">Townhouse or attached single-family home</span><span class="opt__r" aria-hidden="true"></span></label></div>
-                <div class="lf__o"><label class="opt"><input type="radio" name="dwelling-s"><span class="opt__t">Apartment or condo</span><span class="opt__r" aria-hidden="true"></span></label></div>
-                <div class="lf__o"><label class="opt"><input type="radio" name="dwelling-s"><span class="opt__t">Mobile or manufactured home</span><span class="opt__r" aria-hidden="true"></span></label></div>
-                <div class="lf__o"><label class="opt"><input type="radio" name="dwelling-s"><span class="opt__t">Multi-family<small>3+ units in a single structure</small></span><span class="opt__r" aria-hidden="true"></span></label></div>
-                <div class="lf__o"><label class="opt"><input type="radio" name="dwelling-s"><span class="opt__t">Commercial</span><span class="opt__r" aria-hidden="true"></span></label></div>
-                <div class="lf__o"><label class="opt"><input type="radio" name="dwelling-s"><span class="opt__t">Empty lot</span><span class="opt__r" aria-hidden="true"></span></label></div>
+        <div class="lf__prog" id="lfBar" role="progressbar" aria-labelledby="lfStepT" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1"><span id="lfProg"></span></div>
+        <div class="lf__body" id="lfBody">
+          <div class="lf__step">
+            <h3 class="lf__q" id="lfQ" tabindex="-1">Get your cash offer — enter your home address</h3>
+            <p class="lf__d">We’ll use it to look up comparable sales in your neighborhood.</p>
+            <form class="lf__addrform" id="lfAddrForm" novalidate>
+              <label class="lf__lbl" for="lfAddr">Home address</label>
+              <div class="lf__combo">
+                <div class="lf__addrbox"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg><input id="lfAddr" name="address" type="text" autocomplete="street-address" placeholder="Start typing, e.g. 12 Main St, Freehold" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="lfSug" aria-describedby="lfAddrErr"></div>
+                <ul class="lf__sug" id="lfSug" role="listbox" aria-label="Address suggestions" hidden></ul>
               </div>
-            </div>
-            <p class="lf__err" id="lfErr" role="alert" hidden></p>
+              <p class="lf__err" id="lfAddrErr" hidden></p>
+              <button class="btn lf__go" type="submit">Get my offer<svg class="ico" aria-hidden="true"><use href="#i-arr"/></svg></button>
+              <ul class="lf__trust"><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Free</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>No obligation</li><li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>About 2 minutes</li></ul>
+            </form>
           </div>
-          <div class="lf__nav">
-            <button class="circ circ--l" type="button" id="lfPrev" aria-label="Previous question" disabled><svg class="ico" aria-hidden="true"><use href="#i-left"/></svg></button>
-            <button class="btn lf__next" type="submit" id="lfNext"><span>Next</span><svg class="ico" aria-hidden="true"><use href="#i-arr"/></svg></button>
-          </div>
-        </form>
+        </div>
         <div class="lf__done" id="lfDone" hidden>
-          <p class="eyebrow"><span class="idx">07 / 07</span>Request received</p>
+          <p class="lf__doneK"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Request received</p>
           <h3 id="lfDoneH" tabindex="-1">Thank you! Your request has been received</h3>
-          <p class="lead">We’ll contact you soon with your home valuation.</p>
-          <div class="lf__doneBtns"><button class="btn" type="button" id="lfReturn">Return to form</button><a class="btn btn--ghost-l" href="#top">Back to top</a></div>
+          <p class="lf__doneAddr" id="lfDoneAddr"></p>
+          <p class="lf__nextK">What happens next</p>
+          <ol class="lf__next">
+            <li><b>Within 24 hours</b><span>You’ll receive a preliminary cash offer for your home.</span></li>
+            <li><b>Quick walkthrough</b><span>A brief visit to confirm the home’s condition, then a final offer within 48 hours.</span></li>
+            <li><b>You pick the date</b><span>Close in as fast as 7 days or up to 60 days. You can walk away any time before closing.</span></li>
+          </ol>
+          <a class="lf__call" href="tel:+17327403896"><span><small>Questions now? Call us</small><b>(732) 740-3896</b></span><span class="lf__callIc" aria-hidden="true"><svg class="ico"><use href="#i-phone"/></svg></span></a>
+          <div class="lf__doneBtns"><button class="lf__txtbtn" type="button" id="lfReturn">Start a new request</button></div>
         </div>
         <p class="lf__legal">© 2026 Doorifi · Equal Housing Opportunity · <a href="https://doorifi.com/pages/terms-of-service" target="_blank" rel="noopener">Terms of Service</a> · <a href="https://doorifi.com/pages/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a> · <a href="https://doorifi.com/pages/data-sharing-opt-out" target="_blank" rel="noopener">Do Not Sell My Info</a></p>
       </div>
@@ -1196,19 +1335,19 @@ a.crow:hover .crow__ar{transform:translate(2px,-2px)}
       <div class="stage" data-r style="--d:.1s">
         <span class="stage__ring" aria-hidden="true"></span>
         <p class="stage__k" aria-hidden="true">Live analysis · example</p>
-        <div class="perspective-container" role="img" aria-label="Example of a Doorifi live analysis: estimated cash offer $452,000 for a 4-bed, 3-bath, 2,500 sq ft home, cash in hand in 7 days.">
+        <div class="perspective-container" role="img" aria-label="Example of a Doorifi live analysis (illustration, not your estimate): example cash offer $452,000 for a 4-bed, 3-bath, 2,500 sq ft home, cash in hand in 7 days.">
           <div class="blob blob-1"></div>
           <div class="blob blob-2"></div>
           <div class="hero-phone-card" aria-hidden="true">
             <div class="phone-screen">
               <img class="phone-bg-img" src="img/phone-house.webp" width="600" height="1200" alt="" loading="lazy">
               <div class="phone-overlay">
-                <div class="phone-top-row"><span class="pill-glass">Live analysis</span><span class="pill-red">• Sold</span></div>
+                <div class="phone-top-row"><span class="pill-glass" id="phAddr">Live analysis</span><span class="pill-red">• Sold</span></div>
                 <div class="phone-sold-stamp">Sold</div>
                 <div class="phone-bottom-card">
                   <div class="phone-stat-row">
                     <span class="icon-circle"><svg class="ico"><use href="#i-shield"/></svg></span>
-                    <div><div class="stat-label">Estimated offer</div><div class="stat-value">$452,000</div></div>
+                    <div><div class="stat-label">Example offer</div><div class="stat-value">$452,000</div></div>
                   </div>
                   <div class="phone-grid-stats">
                     <div class="stat-box"><b>4</b><span>Beds</span></div>
@@ -1220,9 +1359,15 @@ a.crow:hover .crow__ar{transform:translate(2px,-2px)}
               </div>
             </div>
           </div>
-          <div class="float-card float-card-1" aria-hidden="true">
-            <span class="float-avatar"><img src="img/logo-w.png" width="88" height="96" alt=""></span>
-            <div><div class="float-label">Highest offer</div><div class="float-val">$452k</div></div>
+          <div class="sum" id="lfSum" aria-hidden="true">
+            <p class="sum__k"><span class="float-avatar"><img src="img/logo-w.png" width="88" height="96" alt=""></span>Your request</p>
+            <ul>
+              <li data-k="address"><span class="sum__dot"></span><span class="sum__l">Address</span><span class="sum__v">—</span></li>
+              <li data-k="type"><span class="sum__dot"></span><span class="sum__l">Home</span><span class="sum__v">—</span></li>
+              <li data-k="size"><span class="sum__dot"></span><span class="sum__l">Size</span><span class="sum__v">—</span></li>
+              <li data-k="condition"><span class="sum__dot"></span><span class="sum__l">Condition</span><span class="sum__v">—</span></li>
+              <li data-k="timeline"><span class="sum__dot"></span><span class="sum__l">Timeline</span><span class="sum__v">—</span></li>
+            </ul>
           </div>
           <div class="float-card float-card-2" aria-hidden="true">
             <span class="icon-circle"><svg class="ico"><use href="#i-dollar"/></svg></span>
@@ -1280,7 +1425,7 @@ a.crow:hover .crow__ar{transform:translate(2px,-2px)}
       <li><p class="n">01</p><h3>Enter your address</h3><p>Get a free, no-obligation cash offer within 24 hours.</p></li>
       <li><p class="n">02</p><h3>Quick home visit</h3><p>If you like the offer, we confirm the details in a short walkthrough.</p></li>
       <li><p class="n">03</p><h3>Choose your closing date</h3><p>As fast as 7 days or up to 60 days — you pick.</p></li>
-      <li><p class="n">04</p><h3>Get paid at closing</h3><p>Wire transfer or certified check — your choice.</p></li>
+      <li><p class="n">04</p><h3>Get paid at closing</h3><p>Wire transfer or certified check, the same day.</p></li>
     </ol>
     <div class="cards" tabindex="0" role="region" aria-label="How it works: three short videos">
       <article class="card" data-r>
@@ -1739,122 +1884,172 @@ $$('[data-count]').forEach(function(el){
   o.observe(el);
 });
 
-/* ---------- lead form: the live site's 7 steps + original step animation ---------- */
+/* ---------- lead form v6: address → 5 one-tap questions → contact ----------
+   On implementation: send address + answers + contact to Doorifi's HubSpot form
+   (portal 146926427, form 0b731293-78e0-4e31-a8cc-b5ad59faed2f, as on doorifi.com)
+   and swap the demo suggestions for their Smarty US autocomplete. */
 (function(){
   var lf=$('#offer-form'); if(!lf) return;
+  var I=function(id){return '<svg class="ico" aria-hidden="true"><use href="#'+id+'"/></svg>';};
+  var TYPES=[['Single-family home','','i-house'],['Townhouse','Or attached single-family','i-town'],['Condo or apartment','','i-condo'],['Mobile or manufactured','','i-mobile'],['Multi-family','3+ units in one building','i-multi'],['Commercial','','i-shop'],['Empty lot','','i-lot']];
   var STEPS=[
-    {h:'What best describes your home?',d:'This helps us select comps when preparing your offer.',k:'dwelling',type:'radio',opts:[['Single-family home'],['Townhouse or attached single-family home'],['Apartment or condo'],['Mobile or manufactured home'],['Multi-family','3+ units in a single structure'],['Commercial'],['Empty lot']]},
-    {h:'How many bedrooms does the home have?',d:'A quick estimate is fine.',k:'bedrooms',type:'radio',grid:true,opts:[['1'],['2'],['3'],['4'],['5'],['6+']]},
-    {h:'How many bathrooms?',d:'Count full and half bathrooms together.',k:'bathrooms',type:'radio',grid:true,opts:[['1'],['2'],['3'],['4'],['5+']]},
-    {h:'Does the home have a basement?',d:'',k:'basement',type:'radio',grid:true,opts:[['Yes'],['No']]},
-    {h:'Where should we send your offer?',d:'Enter your details and we’ll get your cash offer started.',type:'contact'},
-    {h:'What do you think your home is worth?',d:'Your best estimate is fine — this won’t affect your offer.',type:'value'},
-    {h:'How soon do you want to close?',d:'This won’t affect your offer. We’re here to help with any timeline.',k:'timeline',type:'radio',opts:[['ASAP'],['2–4 weeks'],['4–6 weeks'],['6+ weeks'],['Just browsing']]}
+    {id:'address',type:'address'},
+    {id:'type',type:'cards',grid:true,h:'What type of home is it?',d:'This helps us select comparable sales for your offer.',opts:TYPES},
+    {id:'size',type:'size',h:'How many bedrooms and bathrooms?',d:'A quick estimate is fine.',skipIf:function(a){return a.type==='Commercial'||a.type==='Empty lot';}},
+    {id:'condition',type:'cards',h:'What condition is the home in?',d:'Be honest — there’s no wrong answer.',hint:'We buy houses in any condition. No repairs needed.',opts:[['Move-in ready','No major issues','i-key'],['Needs some work','Dated kitchen or baths, small repairs','i-tool'],['Needs major repairs','Roof, foundation, water or fire damage','i-alert'],['Not sure','','i-help']],skipIf:function(a){return a.type==='Empty lot';}},
+    {id:'timeline',type:'cards',h:'How soon do you want to sell?',d:'This won’t affect your offer. We’re here to help with any timeline.',opts:[['As soon as possible'],['In 2–4 weeks'],['In 4–6 weeks'],['In 6+ weeks'],['Just exploring my options']]},
+    {id:'situation',type:'cards',optional:true,h:'Is there a reason you’re selling?',d:'Optional. It helps our local team prepare for your call.',opts:[['Inherited property'],['Divorce or separation'],['Behind on payments or facing foreclosure'],['Relocating'],['Rental with tenants'],['Something else']]},
+    {id:'contact',type:'contact',h:'Where should we send your cash offer?',d:'Last step. You’ll receive your no-obligation cash offer within 24 hours.'}
   ];
-  var stepEl=$('#lfStep'),q=$('#lfQ'),dsc=$('#lfD'),content=$('#lfContent'),err=$('#lfErr'),prev=$('#lfPrev'),next=$('#lfNext'),nextT=$('span',next),num=$('#lfNum'),prog=$('#lfProg'),addr=$('#lfAddr'),addrErr=$('#lfAddrErr'),form=$('#lfForm'),done=$('#lfDone');
+  var DEMO=['12 Main St, Freehold, NJ 07728','45 Broad St, Red Bank, NJ 07701','8 Oak Ave, Howell, NJ 07731','210 Washington St, Toms River, NJ 08753'];
+  var body=$('#lfBody'),done=$('#lfDone'),stepT=$('#lfStepT'),left=$('#lfLeft'),prog=$('#lfProg'),bar=$('#lfBar'),sum=$('#lfSum'),phAddr=$('#phAddr');
   var heroForm=$('#heroAddr'),heroIn=$('#addrHero'),heroErr=$('#addrHeroErr');
-  var cur=0,ans={},contact={name:'',email:'',phone:''},val='',autoT=0,busy=false;
-  function showErr(m){err.textContent=m;err.hidden=false;}
-  function hideErr(){err.hidden=true;err.textContent='';}
-  function addrBad(on){addrErr.hidden=!on;addr.setAttribute('aria-invalid',on?'true':'false');lf.classList.toggle('addr-bad',on);}
+  var ans={address:'',beds:'',baths:''},contact={name:'',phone:'',email:''},cur=0,busy=false,autoT=0;
+  var mobile=function(){return window.innerWidth<=700;};
+  function flow(){return STEPS.filter(function(s){return !(s.skipIf&&s.skipIf(ans));});}
+  function idx(){return flow().indexOf(STEPS[cur]);}
+  function meta(){
+    var f=flow(),i=idx(),n=f.length,rest=n-1-i,secs=0;
+    f.slice(i).forEach(function(s){secs+=s.type==='contact'?30:(s.type==='address'?20:12);});
+    stepT.textContent='Step '+(i+1)+' of '+n;
+    left.textContent=STEPS[cur].type==='contact'?'Last step':(secs>=90?'about 2 min left':(secs>=45?'about 1 min left':'less than a minute left'));
+    prog.style.width=((i+1)/n*100).toFixed(2)+'%';
+    bar.setAttribute('aria-valuenow',i+1);bar.setAttribute('aria-valuemax',n);
+  }
+  function setSum(k,v){if(!sum)return;var li=$('li[data-k="'+k+'"]',sum);if(!li)return;$('.sum__v',li).textContent=v||'—';li.classList.toggle('on',!!v);}
+  function syncSum(){
+    setSum('address',ans.address?ans.address.split(',')[0]:'');setSum('type',ans.type||'');
+    setSum('size',ans.beds&&ans.baths?ans.beds+' bd · '+ans.baths+' ba':'');setSum('condition',ans.condition||'');setSum('timeline',(ans.timeline||'').replace(/^In /,''));
+    if(phAddr)phAddr.textContent=ans.address?ans.address.split(',')[0]:'Live analysis';
+  }
+  function head(s,i){return (i>0?'<button class="lf__back" type="button" data-back>'+I('i-left')+'Back</button>':'')+'<h3 class="lf__q" id="lfQ" tabindex="-1">'+s.h+'</h3>'+(s.d?'<p class="lf__d">'+s.d+'</p>':'');}
+  function cards(s){
+    var h='<div class="ch'+(s.grid?' ch--2':'')+'" role="radiogroup" aria-labelledby="lfQ">';
+    s.opts.forEach(function(o,i){var sel=ans[s.id]===o[0];
+      h+='<label class="ch__o'+(sel?' is-sel':'')+'"><input type="radio" name="'+s.id+'" value="'+esc(o[0])+'"'+(sel?' checked':'')+'>'+(o[2]?'<span class="ch__ic">'+I(o[2])+'</span>':'')+'<span class="ch__t">'+esc(o[0])+(o[1]?'<small>'+esc(o[1])+'</small>':'')+'</span><span class="ch__tick">'+I('i-check')+'</span></label>';});
+    return h+'</div>';
+  }
+  function chips(k,label,opts){
+    var h='<p class="lf__sub" id="lf-'+k+'-l">'+label+'</p><div class="ch chips" data-n="'+opts.length+'" role="radiogroup" aria-labelledby="lf-'+k+'-l">';
+    opts.forEach(function(o){var sel=ans[k]===o;h+='<label class="ch__o'+(sel?' is-sel':'')+'"><input type="radio" name="'+k+'" value="'+o+'"'+(sel?' checked':'')+'>'+o+'</label>';});
+    return h+'</div>';
+  }
   function render(){
-    var s=STEPS[cur];
-    q.textContent=s.h;dsc.textContent=s.d||'';dsc.hidden=!s.d;hideErr();
-    content.innerHTML='';
-    if(s.type==='radio') radio(s); else if(s.type==='contact') contactStep(); else valueStep();
-    prev.disabled=cur===0;
-    nextT.textContent=cur===STEPS.length-1?'Get my home valuation':(s.type==='contact'?'Continue':'Next');
-    num.textContent=pad2(cur+1);
-    prog.style.width=((cur+1)/STEPS.length*100).toFixed(4)+'%';
+    var s=STEPS[cur],i=idx(),h='<div class="lf__step">';
+    if(s.type==='address'){
+      h+='<h3 class="lf__q" id="lfQ" tabindex="-1">Get your cash offer — enter your home address</h3><p class="lf__d">We’ll use it to look up comparable sales in your neighborhood.</p>'+
+      '<form class="lf__addrform" id="lfAddrForm" novalidate><label class="lf__lbl" for="lfAddr">Home address</label><div class="lf__combo"><div class="lf__addrbox">'+I('i-pin')+'<input id="lfAddr" name="address" type="text" autocomplete="street-address" placeholder="Start typing, e.g. 12 Main St, Freehold" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="lfSug" aria-describedby="lfAddrErr"></div><ul class="lf__sug" id="lfSug" role="listbox" aria-label="Address suggestions" hidden></ul></div>'+
+      '<p class="lf__err" id="lfAddrErr" hidden></p><button class="btn lf__go" type="submit">Get my offer'+I('i-arr')+'</button>'+
+      '<ul class="lf__trust"><li>'+I('i-check')+'Free</li><li>'+I('i-check')+'No obligation</li><li>'+I('i-check')+'About 2 minutes</li></ul></form>';
+    }else if(s.type==='cards'){
+      h+=head(s,i)+'<div class="lf__content">'+cards(s)+'</div>'+(s.hint?'<p class="lf__hint">'+I('i-check')+s.hint+'</p>':'');
+      h+='<div class="lf__acts">'+(ans[s.id]?'<button class="btn" type="button" data-next>Continue'+I('i-arr')+'</button>':'')+(s.optional?'<button class="lf__txtbtn" type="button" data-skip>Skip this question</button>':'')+'</div>';
+    }else if(s.type==='size'){
+      h+=head(s,i)+'<div class="lf__content">'+chips('beds','Bedrooms',['1','2','3','4','5','6+'])+chips('baths','Bathrooms',['1','2','3','4','5+'])+'</div>';
+      h+='<div class="lf__acts">'+(ans.beds&&ans.baths?'<button class="btn" type="button" data-next>Continue'+I('i-arr')+'</button>':'')+'</div>';
+    }else{
+      h+=head(s,i)+'<form class="cf lf__content" id="lfCf" novalidate>'+
+      fld('name','Full name','text','name','text','Jane Smith')+fld('phone','Phone','tel','tel','tel','(732) 555-0123')+fld('email','Email','email','email','email','jane@example.com')+
+      '<p class="cf__priv">'+I('i-lock')+'Private — your data is never shared or sold. No spam.</p>'+
+      '<button class="btn" type="submit">Get my cash offer'+I('i-arr')+'</button>'+
+      '<p class="cf__legal">By tapping “Get my cash offer”, I agree to allow Doorifi to store and process my personal data. <a href="https://doorifi.com/pages/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a></p></form>';
+    }
+    body.innerHTML=h+'</div>';
+    meta();bind(s);
   }
-  function radio(s){
-    var ul=d.createElement('div');
-    ul.className='lf__opts'+(s.grid?' lf__opts--grid':'');
-    if(s.grid) ul.setAttribute('data-n',s.opts.length);
-    ul.setAttribute('role','radiogroup');ul.setAttribute('aria-labelledby','lfQ');
-    s.opts.forEach(function(o,i){
-      var li=d.createElement('div'),id='lf-'+s.k+'-'+i;li.className='lf__o';
-      li.style.setProperty('--delay',(i*50)+'ms');
-      li.innerHTML='<label class="opt" for="'+id+'"><input type="radio" name="'+s.k+'" id="'+id+'" value="'+esc(o[0])+'"><span class="opt__t">'+esc(o[0])+(o[1]?'<small>'+esc(o[1])+'</small>':'')+'</span><span class="opt__r" aria-hidden="true"></span></label>';
-      var inp=$('input',li),lab=$('label',li);
-      if(ans[s.k]===o[0]){inp.checked=true;li.classList.add('is-sel');}
-      inp.addEventListener('change',function(){ans[s.k]=o[0];$$('.lf__o',ul).forEach(function(x){x.classList.toggle('is-sel',x===li);});hideErr();});
-      lab.addEventListener('click',function(e){if(e.detail>0){clearTimeout(autoT);autoT=setTimeout(function(){if(ans[s.k]===o[0])go(1);},380);}});
-      ul.appendChild(li);
+  function fld(k,l,t,ac,im,ph){return '<div class="cf__f" id="f-'+k+'"><label for="lf-'+k+'">'+l+'</label><input id="lf-'+k+'" name="'+k+'" type="'+t+'" autocomplete="'+ac+'" inputmode="'+im+'" placeholder="'+ph+'"'+(k==='name'?' autocapitalize="words"':'')+' aria-describedby="lf-'+k+'-m"><p class="msg" id="lf-'+k+'-m" hidden></p></div>';}
+  function bind(s){
+    var back=$('[data-back]',body); if(back) back.addEventListener('click',function(){go(-1);});
+    var nx=$('[data-next]',body); if(nx) nx.addEventListener('click',function(){go(1);});
+    var sk=$('[data-skip]',body); if(sk) sk.addEventListener('click',function(){ans[s.id]='';go(1);});
+    if(s.type==='address') bindAddr();
+    if(s.type==='cards'||s.type==='size'){
+      $$('.ch__o',body).forEach(function(lab){
+        var inp=$('input',lab);
+        inp.addEventListener('change',function(){ans[inp.name]=inp.value;$$('input[name="'+inp.name+'"]',body).forEach(function(x){x.parentNode.classList.toggle('is-sel',x===inp);});syncSum();
+          if(s.type==='size'&&ans.beds&&ans.baths&&!$('[data-next]',body)){var a=$('.lf__acts',body);a.innerHTML='<button class="btn" type="button" data-next>Continue'+I('i-arr')+'</button>';$('[data-next]',a).addEventListener('click',function(){go(1);});}
+          if(s.type==='cards'&&!$('[data-next]',body)){var a2=$('.lf__acts',body);a2.insertAdjacentHTML('afterbegin','<button class="btn" type="button" data-next>Continue'+I('i-arr')+'</button>');$('[data-next]',a2).addEventListener('click',function(){go(1);});}
+        });
+        lab.addEventListener('click',function(e){ if(e.detail===0) return; clearTimeout(autoT);
+          autoT=setTimeout(function(){ if(s.type==='size'?(ans.beds&&ans.baths):ans[s.id]) go(1); },320); });
+      });
+    }
+    if(s.type==='contact') bindContact();
+  }
+  /* address step: demo suggestions (UI only, no API key) */
+  function bindAddr(){
+    var f=$('#lfAddrForm'),inp=$('#lfAddr'),sug=$('#lfSug'),err=$('#lfAddrErr'),act=-1,items=[];
+    inp.value=ans.address;
+    function close(){sug.hidden=true;inp.setAttribute('aria-expanded','false');act=-1;}
+    function open(){
+      var q=inp.value.trim().toLowerCase();
+      items=DEMO.filter(function(a){return !q||a.toLowerCase().indexOf(q)>-1;});
+      if(q.length>5&&/\d/.test(q)&&/[a-z]{2}/.test(q)&&items.indexOf(inp.value.trim())<0&&!/nj\b/i.test(q)) items=[inp.value.trim()+', NJ'].concat(items).slice(0,4);
+      if(!items.length){close();return;}
+      sug.innerHTML='<li class="k" role="presentation">'+(q?'Suggestions':'New Jersey addresses · example')+'</li>'+items.map(function(a,i){var p=a.split(', ');return '<li role="option" id="sg'+i+'" aria-selected="false">'+I('i-pin')+'<span>'+esc(p[0])+'<small>'+esc(p.slice(1).join(', '))+'</small></span></li>';}).join('');
+      sug.hidden=false;inp.setAttribute('aria-expanded','true');
+      $$('li[role=option]',sug).forEach(function(li,i){li.addEventListener('mousedown',function(e){e.preventDefault();pick(i);});});
+    }
+    function pick(i){inp.value=items[i];ans.address=items[i];close();bad(false);syncSum();}
+    function bad(m){err.hidden=!m;err.textContent=m||'';inp.setAttribute('aria-invalid',m?'true':'false');lf.classList.toggle('addr-bad',!!m);}
+    function check(){var v=inp.value.trim();if(!v)return 'Please enter your home address to get your offer.';if(!/\d/.test(v)||v.length<6)return 'Please add the house number and street, e.g. 12 Main St, Freehold, NJ.';return '';}
+    inp.addEventListener('focus',function(){open();if(mobile()){setTimeout(function(){var y=inp.getBoundingClientRect().top+(window.scrollY||0)-80;window.scrollTo({top:y,behavior:'smooth'});},250);}});
+    inp.addEventListener('input',function(){ans.address=inp.value.trim();if(!err.hidden&&!check())bad(false);open();syncSum();});
+    inp.addEventListener('blur',function(){setTimeout(close,120);if(inp.value.trim()){var m=check();if(m)bad(m);}});
+    inp.addEventListener('keydown',function(e){
+      if(sug.hidden)return; var opts=$$('li[role=option]',sug);
+      if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();act=(act+(e.key==='ArrowDown'?1:-1)+opts.length)%opts.length;opts.forEach(function(o,i){o.setAttribute('aria-selected',i===act?'true':'false');});inp.setAttribute('aria-activedescendant','sg'+act);}
+      else if(e.key==='Enter'&&act>-1){e.preventDefault();pick(act);}
+      else if(e.key==='Escape'){close();}
     });
-    content.appendChild(ul);
+    f.addEventListener('submit',function(e){e.preventDefault();close();var m=check();if(m){bad(m);inp.focus();return;}ans.address=inp.value.trim();if(heroIn)heroIn.value=ans.address;syncSum();go(1);});
   }
-  function field(k,l,t,ph,ac,msg){return '<div class="fld"><label for="lf-'+k+'">'+l+' *</label><input id="lf-'+k+'" name="'+k+'" type="'+t+'" placeholder="'+ph+'" autocomplete="'+ac+'" required aria-describedby="lf-'+k+'-m"><p class="msg" id="lf-'+k+'-m">'+msg+'</p></div>';}
-  function contactStep(){
-    var w=d.createElement('div');w.className='lf__fields';
-    w.innerHTML=field('name','Full name','text','Enter your full name','name','Please enter your full name')+field('email','Email address','email','Enter your email address','email','Please enter a valid email address')+field('phone','Phone number','tel','Enter your phone number','tel','Please enter a valid phone number');
-    content.appendChild(w);
-    ['name','email','phone'].forEach(function(k){var i=$('#lf-'+k);i.value=contact[k];
-      i.addEventListener('input',function(){contact[k]=i.value.trim();i.parentNode.classList.remove('err');i.removeAttribute('aria-invalid');});
-      i.addEventListener('blur',function(){if(i.value.trim())validate(k);});});
+  /* contact step: US phone mask, errors only after blur / submit */
+  function fmtPhone(v){var d=v.replace(/\D/g,'');if(d.length===11&&d[0]==='1')d=d.slice(1);d=d.slice(0,10);if(d.length<4)return d.length?'('+d:'';if(d.length<7)return '('+d.slice(0,3)+') '+d.slice(3);return '('+d.slice(0,3)+') '+d.slice(3,6)+'-'+d.slice(6);}
+  var MSG={name:'Please enter your name so we know who to ask for.',phone:'Please enter a 10-digit US phone number.',email:'Please enter an email like name@example.com.'};
+  function valid(k,v){if(k==='name')return v.trim().length>1;if(k==='phone')return v.replace(/\D/g,'').replace(/^1(?=\d{10}$)/,'').length===10;return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());}
+  function mark(k,on){var w=$('#f-'+k),m=$('#lf-'+k+'-m'),i=$('#lf-'+k);w.classList.toggle('err',on);m.hidden=!on;m.textContent=on?MSG[k]:'';if(on)i.setAttribute('aria-invalid','true');else i.removeAttribute('aria-invalid');}
+  function bindContact(){
+    ['name','phone','email'].forEach(function(k){var i=$('#lf-'+k);i.value=contact[k];
+      i.addEventListener('input',function(){if(k==='phone'){i.value=fmtPhone(i.value);}contact[k]=i.value.trim();if($('#f-'+k).classList.contains('err')&&valid(k,i.value))mark(k,false);});
+      i.addEventListener('blur',function(){if(i.value.trim())mark(k,!valid(k,i.value));});
+      i.addEventListener('focus',function(){if(mobile())setTimeout(function(){i.scrollIntoView({block:'center',behavior:'smooth'});},250);});
+    });
+    $('#lfCf').addEventListener('submit',function(e){e.preventDefault();var first=null;
+      ['name','phone','email'].forEach(function(k){var ok=valid(k,$('#lf-'+k).value);mark(k,!ok);if(!ok&&!first)first=k;});
+      if(first){$('#lf-'+first).focus();return;}
+      finish();});
   }
-  function validate(k){
-    var i=$('#lf-'+k),v=i.value.trim(),ok=!!v;
-    if(ok&&k==='email') ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-    if(ok&&k==='phone') ok=/^[\+]?[\d\s\(\)\-]{10,}$/.test(v.replace(/\s/g,''));
-    i.parentNode.classList.toggle('err',!ok);
-    if(ok) i.removeAttribute('aria-invalid'); else i.setAttribute('aria-invalid','true');
-    return ok;
-  }
-  function valueStep(){
-    var w=d.createElement('div');w.className='lf__fields';
-    w.innerHTML='<div class="fld"><label for="lf-value">Estimated home value</label><div class="money"><span aria-hidden="true">$</span><input id="lf-value" inputmode="numeric" placeholder="250,000" autocomplete="off"></div></div>';
-    content.appendChild(w);
-    var i=$('#lf-value');i.value=val;
-    i.addEventListener('input',function(){var digits=i.value.replace(/\D/g,'').slice(0,9);i.value=digits?Number(digits).toLocaleString('en-US'):'';val=i.value;hideErr();});
-  }
-  function check(){
-    var s=STEPS[cur];
-    if(!addr.value.trim()){addrBad(true);addr.focus();return false;}
-    if(s.type==='radio'&&!ans[s.k]){showErr('Please choose an option to continue.');return false;}
-    if(s.type==='contact'){var bad=null;['name','email','phone'].forEach(function(k){if(!validate(k)&&!bad)bad=k;});if(bad){$('#lf-'+bad).focus();return false;}}
-    if(s.type==='value'&&val){var n=+val.replace(/\D/g,'');if(n<10000||n>100000000){showErr('Please enter a value between $10,000 and $100,000,000.');return false;}}
-    return true;
-  }
-  function swap(cb){
-    if(RM){cb();return;}
-    stepEl.classList.add('fade-out');
-    setTimeout(function(){cb();void stepEl.offsetWidth;requestAnimationFrame(function(){stepEl.classList.remove('fade-out');stepEl.classList.add('fade-in');setTimeout(function(){stepEl.classList.remove('fade-in');},300);});},300);
-  }
+  function swap(cb){if(RM){cb();return;}body.classList.add('is-out');setTimeout(function(){cb();requestAnimationFrame(function(){body.classList.remove('is-out');});},200);}
   function scrollToForm(){var y=lf.getBoundingClientRect().top+(window.scrollY||0)-(window.innerWidth<1024?76:100);window.scrollTo({top:y,behavior:RM?'auto':'smooth'});}
-  function focusStep(){
-    var r=lf.getBoundingClientRect();
-    if(r.top<-40) scrollToForm();
-    var s=STEPS[cur];
-    if(s.type==='contact'||s.type==='value'){var f=$('input',content);if(f){f.focus({preventScroll:true});return;}}
-    q.focus({preventScroll:true});
-  }
   function go(dir){
-    clearTimeout(autoT);
-    if(busy) return;
-    if(dir>0&&!check()) return;
-    if(dir>0&&cur===STEPS.length-1){finish();return;}
-    var n=cur+dir; if(n<0||n>=STEPS.length) return;
+    clearTimeout(autoT); if(busy) return;
+    var f=flow(),i=idx(),n=f[i+dir]; if(!n) return;
     busy=true;
-    swap(function(){cur=n;render();busy=false;focusStep();});
+    swap(function(){cur=STEPS.indexOf(n);render();busy=false;
+      if(lf.getBoundingClientRect().top<-40) scrollToForm();
+      var q=$('#lfQ',body); if(q) q.focus({preventScroll:true});});
   }
   function finish(){
     busy=true;
-    /* on implementation: post address + answers + contact to Doorifi's HubSpot (portal 146721927), as the live form does */
-    swap(function(){form.hidden=true;done.hidden=false;prog.style.width='100%';busy=false;$('#lfDoneH').focus({preventScroll:true});});
+    /* on implementation: POST to HubSpot here (see note above) — the demo sends nothing */
+    swap(function(){
+      body.hidden=true;$('.lf__top',lf).hidden=true;bar.hidden=true;done.hidden=false;
+      var fn=contact.name.split(' ')[0];$('#lfDoneH').textContent='Thank you'+(fn?', '+fn:'')+'! Your request has been received';
+      $('#lfDoneAddr').textContent=ans.address?'For '+ans.address:'';
+      busy=false;$('#lfDoneH').focus({preventScroll:true});if(done.getBoundingClientRect().top<0)scrollToForm();});
   }
-  $('#lfReturn').addEventListener('click',function(){done.hidden=true;form.hidden=false;cur=0;render();q.focus({preventScroll:true});});
-  prev.addEventListener('click',function(){go(-1);});
-  form.addEventListener('submit',function(e){e.preventDefault();go(1);});
-  addr.addEventListener('input',function(){if(addr.value.trim())addrBad(false);heroIn.value=addr.value;});
-  heroIn.addEventListener('input',function(){heroErr.hidden=true;addr.value=heroIn.value;if(heroIn.value.trim())addrBad(false);});
+  $('#lfReturn').addEventListener('click',function(){done.hidden=true;body.hidden=false;$('.lf__top',lf).hidden=false;bar.hidden=false;
+    ans={address:'',beds:'',baths:''};contact={name:'',phone:'',email:''};cur=0;syncSum();render();$('#lfQ',body).focus({preventScroll:true});});
+  heroIn.addEventListener('input',function(){heroErr.hidden=true;});
   heroForm.addEventListener('submit',function(e){
     e.preventDefault();
     if(!heroIn.value.trim()){heroErr.hidden=false;heroIn.focus();return;}
-    heroErr.hidden=true;addr.value=heroIn.value.trim();addrBad(false);scrollToForm();
-    setTimeout(function(){q.focus({preventScroll:true});},RM?0:900);
+    heroErr.hidden=true;ans.address=heroIn.value.trim();syncSum();
+    cur=1;render();scrollToForm();
+    setTimeout(function(){var q=$('#lfQ',body);if(q)q.focus({preventScroll:true});},RM?0:900);
   });
-  render();
+  render();syncSum();
 })();
 
 /* ---------- videos: lazy load, autoplay muted in view; original controls (pause / restart with spin / mute) ---------- */
